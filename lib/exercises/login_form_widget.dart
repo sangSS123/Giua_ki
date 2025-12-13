@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Đổi tên class để phù hợp với quy tắc đặt tên Exercise
 class LoginExercise extends StatefulWidget {
   const LoginExercise({super.key});
 
@@ -9,39 +8,30 @@ class LoginExercise extends StatefulWidget {
 }
 
 class _LoginExerciseState extends State<LoginExercise> {
-  // Key toàn cục để quản lý trạng thái của Form
   final _formKey = GlobalKey<FormState>();
-
-  // Controllers để quản lý giá trị của TextFormField
   final _userController = TextEditingController();
   final _passController = TextEditingController();
 
-  // Biến để chuyển đổi hiển thị/ẩn mật khẩu
   bool _obscure = true;
 
   @override
   void dispose() {
-    // Giải phóng controllers khi widget bị hủy
     _userController.dispose();
     _passController.dispose();
     super.dispose();
   }
 
   void _dangNhap() {
-    // Gọi validate để hiển thị lỗi ngay dưới TextField
     if (_formKey.currentState!.validate()) {
-      // Logic đăng nhập thành công (giả định)
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Đăng nhập thành công!'),
           backgroundColor: Colors.green,
         ),
       );
-      // Xóa nội dung sau khi đăng nhập (tùy chọn)
       _userController.clear();
       _passController.clear();
     } else {
-      // Hiển thị thông báo nếu validation thất bại (tùy chọn)
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Vui lòng kiểm tra lại thông tin.'),
@@ -62,17 +52,14 @@ class _LoginExerciseState extends State<LoginExercise> {
       ),
       body: Center(
         child: SingleChildScrollView(
-          // Đảm bảo không bị overflow khi bàn phím hiện lên
           child: Padding(
             padding: const EdgeInsets.all(25),
             child: Form(
               key: _formKey,
-              // Chỉ hiện lỗi khi nhấn nút (disabled)
               autovalidateMode: AutovalidateMode.disabled,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Logo/Tiêu đề lớn (Thêm vào để giao diện đẹp hơn)
                   const Text(
                     "Đăng Nhập Hệ Thống",
                     style: TextStyle(
@@ -83,7 +70,6 @@ class _LoginExerciseState extends State<LoginExercise> {
                   ),
                   const SizedBox(height: 40),
 
-                  // --- Ô nhập tên người dùng ---
                   TextFormField(
                     controller: _userController,
                     decoration: const InputDecoration(
@@ -103,7 +89,6 @@ class _LoginExerciseState extends State<LoginExercise> {
                   ),
                   const SizedBox(height: 20),
 
-                  // --- Ô nhập mật khẩu ---
                   TextFormField(
                     controller: _passController,
                     obscureText: _obscure,
@@ -136,10 +121,9 @@ class _LoginExerciseState extends State<LoginExercise> {
                   ),
                   const SizedBox(height: 30),
 
-                  // --- Nút đăng nhập ---
                   Center(
                     child: SizedBox(
-                      width: double.infinity, // Mở rộng hết chiều rộng
+                      width: double.infinity,
                       height: 55,
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(

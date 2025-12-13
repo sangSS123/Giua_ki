@@ -1,8 +1,5 @@
-// lib/exercises/counter_app_widget.dart
-
 import 'package:flutter/material.dart';
 
-// Đã giữ nguyên tên class CounterExercise để khớp với lib/myplace.dart
 class CounterExercise extends StatefulWidget {
   const CounterExercise({super.key});
 
@@ -13,28 +10,24 @@ class CounterExercise extends StatefulWidget {
 class _CounterExerciseState extends State<CounterExercise> {
   int count = 0;
 
-  // Hàm tăng giá trị
   void _increase() {
     setState(() {
       count++;
     });
   }
 
-  // Hàm giảm giá trị
   void _decrease() {
     setState(() {
       count--;
     });
   }
 
-  // Hàm đặt lại giá trị về 0
   void _reset() {
     setState(() {
       count = 0;
     });
   }
 
-  // Hàm xác định màu chữ dựa trên giá trị count
   Color _getTextColor() {
     if (count > 0) return Colors.green;
     if (count < 0) return Colors.red;
@@ -55,7 +48,6 @@ class _CounterExerciseState extends State<CounterExercise> {
           children: [
             const Text("Giá trị hiện tại:", style: TextStyle(fontSize: 22)),
             const SizedBox(height: 10),
-            // Hiển thị giá trị count với màu sắc thay đổi
             Text(
               "$count",
               style: TextStyle(
@@ -68,7 +60,6 @@ class _CounterExerciseState extends State<CounterExercise> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Nút Giảm
                 ElevatedButton.icon(
                   onPressed: _decrease,
                   icon: const Icon(Icons.remove),
@@ -80,7 +71,7 @@ class _CounterExerciseState extends State<CounterExercise> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                // Nút Reset
+
                 ElevatedButton.icon(
                   onPressed: _reset,
                   icon: const Icon(Icons.refresh),
@@ -92,7 +83,7 @@ class _CounterExerciseState extends State<CounterExercise> {
                   ),
                 ),
                 const SizedBox(width: 12),
-                // Nút Tăng
+
                 ElevatedButton.icon(
                   onPressed: _increase,
                   icon: const Icon(Icons.add),

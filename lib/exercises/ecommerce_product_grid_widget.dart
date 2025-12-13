@@ -1,10 +1,7 @@
-// lib/exercises/ecommerce_product_grid_widget.dart
-
 import 'package:flutter/material.dart';
 import 'package:giua_ki/exercises/api_service.dart';
 import '../model/product.dart';
 
-// Đổi tên class để tránh xung đột và làm rõ mục đích widget
 class EcommerceProductGridExercise extends StatefulWidget {
   const EcommerceProductGridExercise({super.key});
 
@@ -98,7 +95,6 @@ class _EcommerceProductGridExerciseState
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // 1. Phần hình ảnh
           Expanded(
             child: Container(
               width: double.infinity,
@@ -112,13 +108,11 @@ class _EcommerceProductGridExerciseState
             ),
           ),
 
-          // 2. Phần thông tin text
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Tên sản phẩm (giới hạn 2 dòng)
                 Text(
                   p.title,
                   maxLines: 2,
@@ -127,7 +121,6 @@ class _EcommerceProductGridExerciseState
                 ),
                 const SizedBox(height: 4),
 
-                // Giả lập tag "LazMall"
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 4,
@@ -145,7 +138,6 @@ class _EcommerceProductGridExerciseState
                 ),
                 const SizedBox(height: 8),
 
-                // Giá tiền
                 Text(
                   "\$${p.price.toStringAsFixed(2)}",
                   style: const TextStyle(
@@ -155,7 +147,6 @@ class _EcommerceProductGridExerciseState
                   ),
                 ),
 
-                // Đánh giá sao
                 Row(
                   children: const [
                     Icon(Icons.star, size: 12, color: Colors.amber),

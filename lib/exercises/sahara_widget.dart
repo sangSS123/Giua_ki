@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 
-// Đổi tên thành SaharaExercise để đồng bộ
 class SaharaExercise extends StatelessWidget {
   const SaharaExercise({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // CHỈ TRẢ VỀ MyBody() để nhúng vào MyPlace
-    // Bọc trong SingleChildScrollView để có thể cuộn nếu nội dung dài hơn màn hình
     return SingleChildScrollView(child: MyBody());
   }
 
@@ -16,7 +13,6 @@ class SaharaExercise extends StatelessWidget {
   }
 }
 
-// Block1: hiển thị hình
 Widget Block1() {
   var src =
       "https://images.unsplash.com/photo-1489573280374-2e193c63726c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
@@ -28,7 +24,6 @@ Widget Block1() {
   );
 }
 
-// Block2: hiển thị text
 Widget Block2() {
   return Padding(
     padding: const EdgeInsets.all(25.0),
@@ -61,7 +56,7 @@ Widget Block2() {
 
 Widget Block3() {
   return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 20.0), // Thêm padding cho đẹp
+    padding: const EdgeInsets.symmetric(vertical: 20.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -95,7 +90,7 @@ Widget Block4() {
     padding: const EdgeInsets.all(25.0),
     child: Text(
       str,
-      textAlign: TextAlign.justify, // Dùng justify cho đoạn văn dài
+      textAlign: TextAlign.justify,
       style: const TextStyle(fontSize: 16),
     ),
   );

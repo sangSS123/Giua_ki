@@ -21,9 +21,6 @@ class _LoginPageState extends State<LoginPage> {
   String _errorMessage = '';
   Map<String, dynamic>? _userData;
 
-  // ───────────────────────────────
-  // 🔥 LOGIN
-  // ───────────────────────────────
   Future<String?> _loginApi(String username, String password) async {
     try {
       final resp = await http.post(
@@ -49,9 +46,6 @@ class _LoginPageState extends State<LoginPage> {
     return null;
   }
 
-  // ───────────────────────────────
-  // 🔥 LẤY PROFILE
-  // ───────────────────────────────
   Future<void> _getUserProfileApi(String token) async {
     try {
       final resp = await http.get(
@@ -82,9 +76,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // ───────────────────────────────
-  // 🔥 XỬ LÝ LOGIN
-  // ───────────────────────────────
   Future<void> _handleLogin() async {
     setState(() {
       _isLoading = true;
@@ -106,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // 🔥 ĐĂNG XUẤT
   void _handleLogout() {
     setState(() {
       _userData = null;
@@ -115,9 +105,6 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  // ───────────────────────────────
-  // UI
-  // ───────────────────────────────
   @override
   Widget build(BuildContext context) {
     final isLoggedIn = _userData != null;
@@ -139,9 +126,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // ───────────────────────────────
-  // WIDGET LOGIN
-  // ───────────────────────────────
   Widget _buildLoginForm() {
     return Center(
       child: SingleChildScrollView(
@@ -226,9 +210,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // ───────────────────────────────
-  // WIDGET PROFILE
-  // ───────────────────────────────
   Widget _buildProfileView() {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),

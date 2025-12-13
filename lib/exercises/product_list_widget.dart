@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// --- 1. Định nghĩa Model (Giữ nguyên) ---
 class Place {
   final String imagePath;
   final String name;
@@ -27,10 +26,9 @@ class Place {
   });
 }
 
-// --- 2. Dữ liệu (Đã đổi tên ảnh) ---
 final List<Place> savedPlaces = const [
   Place(
-    imagePath: 'assets/images/anh5.png', // Đã đổi
+    imagePath: 'assets/images/anh5.png',
     name: 'aNhill Boutique',
     rating: '9.5',
     review: 'Xuất sắc · 95 đánh giá',
@@ -42,7 +40,7 @@ final List<Place> savedPlaces = const [
     tag: 'Bao bữa sáng',
   ),
   Place(
-    imagePath: 'assets/images/anh6.png', // Đã đổi
+    imagePath: 'assets/images/anh6.png',
     name: 'An Nam Hue Boutique',
     rating: '9.2',
     review: 'Tuyệt hảo · 34 đánh giá',
@@ -54,7 +52,7 @@ final List<Place> savedPlaces = const [
     tag: 'Bao bữa sáng',
   ),
   Place(
-    imagePath: 'assets/images/anh7.png', // Đã đổi
+    imagePath: 'assets/images/anh7.png',
     name: 'Huế Jade Hill Villa',
     rating: '8.0',
     review: 'Rất tốt · 1 đánh giá',
@@ -65,10 +63,10 @@ final List<Place> savedPlaces = const [
     note1: 'Đã bao gồm thuế và phí',
     note2:
         'Chỉ còn 1 căn với giá này trên Booking.com\nKhông cần thanh toán trước',
-    tag: '', // ❌ Không có "Bao bữa sáng"
+    tag: '',
   ),
   Place(
-    imagePath: 'assets/images/anh8.png', // Đã đổi
+    imagePath: 'assets/images/anh8.png',
     name: 'Êm Villa',
     rating: '9.0',
     review: 'Tuyệt hảo · 12 đánh giá',
@@ -81,21 +79,17 @@ final List<Place> savedPlaces = const [
   ),
 ];
 
-// --- 3. Widget chính (Đã đổi tên và giữ lại Scaffold) ---
 class ProductListExercise extends StatelessWidget {
   const ProductListExercise({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Giữ lại Scaffold để có cấu trúc Booking UI hoàn chỉnh
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
-          // THANH ĐẦU (MÀU XANH)
           Container(
             color: const Color(0xFF005BBB),
-            // Sử dụng MediaQuery.of(context).padding.top để xử lý SafeArea tự động
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).padding.top + 10,
               bottom: 16,
@@ -127,7 +121,6 @@ class ProductListExercise extends StatelessWidget {
             ),
           ),
 
-          // THANH NÚT TRẮNG
           Container(
             color: Colors.white,
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -141,7 +134,6 @@ class ProductListExercise extends StatelessWidget {
             ),
           ),
 
-          // “757 chỗ nghỉ”
           Container(
             width: double.infinity,
             color: Colors.white,
@@ -157,14 +149,13 @@ class ProductListExercise extends StatelessWidget {
             ),
           ),
 
-          // DANH SÁCH (ListView)
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(10),
               itemCount: savedPlaces.length,
               itemBuilder: (context, index) {
                 final place = savedPlaces[index];
-                return _PlaceCard(place: place); // Sử dụng widget con
+                return _PlaceCard(place: place);
               },
             ),
           ),
@@ -174,7 +165,6 @@ class ProductListExercise extends StatelessWidget {
   }
 }
 
-// --- Widget con cho nút Sắp xếp/Lọc/Bản đồ ---
 Widget _buildButtonColumn(
   IconData icon,
   String label, {
@@ -207,7 +197,6 @@ Widget _buildButtonColumn(
   );
 }
 
-// --- Widget con cho mỗi Card Khách sạn ---
 class _PlaceCard extends StatelessWidget {
   final Place place;
   const _PlaceCard({required this.place});
@@ -221,7 +210,6 @@ class _PlaceCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ẢNH
           Stack(
             children: [
               Container(
@@ -234,8 +222,7 @@ class _PlaceCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: // Thêm ErrorBuilder để dễ debug nếu ảnh không load được
-                Image.asset(
+                child: Image.asset(
                   place.imagePath,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
@@ -282,14 +269,12 @@ class _PlaceCard extends StatelessWidget {
             ],
           ),
 
-          // PHẦN MÔ TẢ
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // TÊN + TIM
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -339,7 +324,6 @@ class _PlaceCard extends StatelessWidget {
 
                   const SizedBox(height: 4),
 
-                  // ĐÁNH GIÁ
                   Row(
                     children: [
                       Container(
@@ -396,7 +380,6 @@ class _PlaceCard extends StatelessWidget {
                     ],
                   ),
 
-                  // 🔽 PHẦN CANH PHẢI (GIÁ & GHI CHÚ)
                   Align(
                     alignment: Alignment.centerRight,
                     child: Column(
@@ -409,7 +392,7 @@ class _PlaceCard extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.black87,
-                            fontWeight: FontWeight.w600, // in đậm
+                            fontWeight: FontWeight.w600,
                             height: 1.3,
                           ),
                         ),
@@ -443,7 +426,7 @@ class _PlaceCard extends StatelessWidget {
                                     textAlign: TextAlign.right,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Color(0xFFC30000), // Màu đỏ đậm
+                                      color: Color(0xFFC30000),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -454,9 +437,7 @@ class _PlaceCard extends StatelessWidget {
                                   children: const [
                                     Icon(
                                       Icons.check_circle,
-                                      color: Color(
-                                        0xFF008234,
-                                      ), // Màu xanh lá cây đậm
+                                      color: Color(0xFF008234),
                                       size: 14,
                                     ),
                                     SizedBox(width: 4),

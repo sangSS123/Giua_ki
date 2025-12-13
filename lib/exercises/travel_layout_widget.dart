@@ -60,12 +60,10 @@ class TravelLayoutExercise extends StatelessWidget {
                       height: 1.1,
                     ),
                     children: <TextSpan>[
-                      // "Welcome," - In đậm
                       TextSpan(
                         text: 'Welcome,\n',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      // "Charlie" - Không in đậm
                       TextSpan(
                         text: 'Charlie',
                         style: TextStyle(
@@ -78,7 +76,6 @@ class TravelLayoutExercise extends StatelessWidget {
                 ),
                 const SizedBox(height: 30.0),
 
-                // --- 2.3. Thanh Tìm kiếm (Search Bar) ---
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Container(
@@ -107,13 +104,12 @@ class TravelLayoutExercise extends StatelessWidget {
                         contentPadding: EdgeInsets.symmetric(
                           vertical: 15.0,
                           horizontal: 10.0,
-                        ), // Căn chỉnh lại padding
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 40.0), // Tăng khoảng cách
-                // --- 2.4. Tiêu đề Saved Places ---
+                const SizedBox(height: 40.0),
                 const Text(
                   'Saved Places',
                   style: TextStyle(
@@ -124,7 +120,6 @@ class TravelLayoutExercise extends StatelessWidget {
                 ),
                 const SizedBox(height: 20.0),
 
-                // --- 2.5. GridView (Danh sách ảnh) ---
                 GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -132,7 +127,6 @@ class TravelLayoutExercise extends StatelessWidget {
                     crossAxisCount: 2,
                     crossAxisSpacing: 15.0,
                     mainAxisSpacing: 15.0,
-                    // Tỷ lệ 1.45 hoặc 1.5 rất gần với hình mẫu
                     childAspectRatio: 1.45,
                   ),
                   itemCount: savedPlaces.length,
@@ -140,12 +134,10 @@ class TravelLayoutExercise extends StatelessWidget {
                     final place = savedPlaces[index];
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(15.0),
-                      // Sử dụng Image.asset như code gốc
                       child: Image.asset(
                         place.assetPath,
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
-                        // Thêm errorBuilder để dễ debug nếu ảnh không load được
                         errorBuilder: (context, error, stackTrace) {
                           return Container(
                             color: Colors.red.shade100,

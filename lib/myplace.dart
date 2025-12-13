@@ -1,10 +1,5 @@
-// lib/myplace.dart
-
 import 'package:flutter/material.dart';
 
-// ------------------------------------------------------------------
-// CÁC IMPORTS BÀI TẬP (Giữ nguyên)
-// ------------------------------------------------------------------
 import 'package:giua_ki/exercises/classroom_widget.dart';
 import 'package:giua_ki/exercises/countdown_timer_widget.dart';
 import 'package:giua_ki/exercises/myhome_widget.dart';
@@ -19,10 +14,6 @@ import 'package:giua_ki/exercises/ecommerce_product_grid_widget.dart';
 import 'package:giua_ki/exercises/home_screen.dart';
 import 'package:giua_ki/exercises/login_api_exercise.dart';
 
-// ------------------------------------------------------------------
-// WIDGET CHÍNH: MYPLACE (Tối Ưu Kích Thước)
-// ------------------------------------------------------------------
-
 class MyPlace extends StatefulWidget {
   const MyPlace({super.key});
 
@@ -31,7 +22,6 @@ class MyPlace extends StatefulWidget {
 }
 
 class _MyPlaceState extends State<MyPlace> {
-  // Danh sách bài tập (Đã thêm Icon)
   final List<Map<String, dynamic>> exercises = [
     {'title': 'Myhome', 'icon': Icons.home_rounded},
     {'title': 'Classroom', 'icon': Icons.class_rounded},
@@ -52,9 +42,6 @@ class _MyPlaceState extends State<MyPlace> {
 
   Widget _buildContent(String title) {
     switch (title) {
-      // ----------------------------------------------------
-      // CÁC CASE TRẢ VỀ WIDGET BÀI TẬP (GIỮ NGUYÊN)
-      // ----------------------------------------------------
       case 'Myhome':
         return const MyHomeExercise();
       case 'Classroom':
@@ -83,7 +70,6 @@ class _MyPlaceState extends State<MyPlace> {
         return const LoginPage();
 
       default:
-        // Nội dung mặc định cho màn hình chào mừng
         return Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +112,6 @@ class _MyPlaceState extends State<MyPlace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // AppBar
       appBar: AppBar(
         title: const Text(
           'FLUTTER WORKSPACE',
@@ -143,7 +128,6 @@ class _MyPlaceState extends State<MyPlace> {
       ),
       body: Row(
         children: <Widget>[
-          // CỘT TRÁI (MENU) - Chiếm 30%
           Container(
             width: MediaQuery.of(context).size.width * 0.3,
             decoration: BoxDecoration(
@@ -241,10 +225,8 @@ class _MyPlaceState extends State<MyPlace> {
             ),
           ),
 
-          // CỘT PHẢI (NỘI DUNG/KẾT QUẢ) - Khung màn hình giả lập
           Expanded(
             child: Container(
-              // Background gradient nhẹ
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [Colors.grey.shade50, Colors.grey.shade200],
@@ -252,14 +234,12 @@ class _MyPlaceState extends State<MyPlace> {
                   end: Alignment.bottomRight,
                 ),
               ),
-              // ĐIỀU CHỈNH: Giảm padding xung quanh để tăng không gian hiển thị
+
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Container(
                   constraints: const BoxConstraints(
-                    // ĐIỀU CHỈNH: Tăng MaxWidth để chiếm nhiều không gian hơn
                     maxWidth: 700,
-                    // ĐIỀU CHỈNH: Tăng MaxHeight một chút
                     maxHeight: 900,
                   ),
                   decoration: BoxDecoration(
@@ -280,7 +260,6 @@ class _MyPlaceState extends State<MyPlace> {
                         borderRadius: BorderRadius.circular(30),
                         child: _buildContent(_selectedExercise),
                       ),
-                      // Thanh Home Indicator giả lập
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(

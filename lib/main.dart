@@ -11,8 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false, // Thường dùng để bỏ debug banner
-      home: MyPlace(), // Gọi Widget đã tách ra
+      debugShowCheckedModeBanner: false,
+      home: MyPlace(),
     );
   }
 }

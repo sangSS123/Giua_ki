@@ -9,7 +9,6 @@ class MyHomeExercise extends StatelessWidget {
   }
 
   Widget myBody() {
-    // Bọc trong Center để đảm bảo nội dung căn giữa tuyệt đối
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -18,13 +17,13 @@ class MyHomeExercise extends StatelessWidget {
           const Text(
             'Xin chào con người',
             style: TextStyle(color: Colors.red, fontSize: 60),
-            textAlign: TextAlign.center, // Thêm căn giữa nếu text quá dài
+            textAlign: TextAlign.center,
           ),
           const Icon(Icons.heart_broken, color: Colors.red, size: 150),
           const Text(
             "Chúng tôi là lớp LTDĐ - Nhóm 5 ",
             style: TextStyle(color: Colors.blue, fontSize: 60),
-            textAlign: TextAlign.center, // Thêm căn giữa nếu text quá dài
+            textAlign: TextAlign.center,
           ),
         ],
       ),

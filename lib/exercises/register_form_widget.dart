@@ -1,5 +1,3 @@
-// lib/exercises/register_form_widget.dart
-
 import 'package:flutter/material.dart';
 
 class RegisterExercise extends StatefulWidget {
@@ -22,7 +20,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
 
   @override
   void dispose() {
-    // Giải phóng controllers
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -43,7 +40,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _showMessage(context, 'Đăng ký thành công!');
-      // Xóa form sau khi đăng ký thành công
       _nameController.clear();
       _emailController.clear();
       _passwordController.clear();
@@ -59,10 +55,7 @@ class _RegisterExerciseState extends State<RegisterExercise> {
       appBar: AppBar(
         title: const Text(
           'Form Đăng ký tài khoản ',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ), // Đổi màu chữ cho hợp màu AppBar
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         backgroundColor: Colors.yellow,
@@ -88,7 +81,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                 ),
                 const SizedBox(height: 30),
 
-                // Họ tên
                 TextFormField(
                   controller: _nameController,
                   decoration: InputDecoration(
@@ -108,7 +100,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                 ),
                 const SizedBox(height: 15),
 
-                // Email
                 TextFormField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -131,7 +122,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                 ),
                 const SizedBox(height: 15),
 
-                // Mật khẩu
                 TextFormField(
                   controller: _passwordController,
                   obscureText: _obscurePassword,
@@ -166,7 +156,6 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                 ),
                 const SizedBox(height: 15),
 
-                // Xác nhận mật khẩu
                 TextFormField(
                   controller: _confirmController,
                   obscureText: _obscureConfirm,
@@ -201,13 +190,12 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                 ),
                 const SizedBox(height: 25),
 
-                // Nút đăng ký
                 Center(
                   child: SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton.icon(
-                      onPressed: _submitForm, // Gọi hàm submit
+                      onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.yellow,
                         shape: RoundedRectangleBorder(
@@ -217,7 +205,7 @@ class _RegisterExerciseState extends State<RegisterExercise> {
                       ),
                       icon: const Icon(
                         Icons.person_add_alt,
-                        color: Colors.deepPurple, // Đổi màu icon cho hợp tông
+                        color: Colors.deepPurple,
                       ),
                       label: const Text(
                         'Đăng ký Tài khoản',

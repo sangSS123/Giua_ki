@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import '../model/article.dart'; // Sửa import
-import '../services/news_api.dart'; // Sửa import
-import 'detail_screen.dart'; // Giữ nguyên, vì cùng cấp
+import '../model/article.dart';
+import '../services/news_api.dart';
+import 'detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -18,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: FutureBuilder<List<Article>>(
         future: api.fetchNews(),
         builder: (context, snapshot) {
-          // Xử lý lỗi
           if (snapshot.hasError) {
             return Center(
               child: Text(
@@ -28,19 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
 
-          // Xử lý trạng thái đang tải
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           }
 
-          // Xử lý trường hợp không có dữ liệu
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("Không có tin tức"));
           }
 
           final articles = snapshot.data!;
 
-          // Hiển thị danh sách
           return ListView.builder(
             itemCount: articles.length,
             itemBuilder: (context, index) {
@@ -60,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   title: Text(a.title),
                   subtitle: Text(a.description),
                   onTap: () {
-                    // Chuyển sang màn hình chi tiết
                     Navigator.push(
                       context,
                       MaterialPageRoute(

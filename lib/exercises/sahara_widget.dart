@@ -38,7 +38,7 @@ Widget Block2() {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Text(
-              "Ben kia ban cau",
+              "Bên kia bán cầu",
               style: TextStyle(color: Colors.grey.shade600),
             ),
           ],

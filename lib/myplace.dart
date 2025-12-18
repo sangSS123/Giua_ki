@@ -22,6 +22,8 @@ class MyPlace extends StatefulWidget {
 }
 
 class _MyPlaceState extends State<MyPlace> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final List<Map<String, dynamic>> exercises = [
     {'title': 'Myhome', 'icon': Icons.home_rounded},
     {'title': 'Classroom', 'icon': Icons.class_rounded},
@@ -38,7 +40,8 @@ class _MyPlaceState extends State<MyPlace> {
     {'title': 'Profile', 'icon': Icons.person},
   ];
 
-  String _selectedExercise = 'Chào mừng bạn đến với ứng dụng ';
+  // Khởi tạo là chuỗi rỗng để hiện màn hình chào mừng lúc đầu
+  String _selectedExercise = '';
 
   Widget _buildContent(String title) {
     switch (title) {
@@ -68,7 +71,6 @@ class _MyPlaceState extends State<MyPlace> {
         return HomeScreen();
       case 'Profile':
         return const LoginPage();
-
       default:
         return Center(
           child: Column(
@@ -82,27 +84,26 @@ class _MyPlaceState extends State<MyPlace> {
                 ),
                 child: Icon(
                   Icons.menu_book,
-                  size: 60,
+                  size: 80,
                   color: Colors.teal.shade700,
                 ),
               ),
               const SizedBox(height: 20),
               const Text(
-                'Chào mừng bạn đến với Flutter Workspace',
+                'Chào mừng bạn đến với bài giữa kì',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.w800,
                   color: Colors.black87,
                 ),
               ),
               const SizedBox(height: 10),
               const Text(
-                'Vui lòng chọn một bài tập từ Menu bên trái \nđể xem kết quả.',
+                'Mở Menu bên trái và chọn một bài tập để bắt đầu.',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
-              const SizedBox(height: 30),
             ],
           ),
         );
@@ -111,176 +112,129 @@ class _MyPlaceState extends State<MyPlace> {
 
   @override
   Widget build(BuildContext context) {
+    bool isExerciseSelected = _selectedExercise.isNotEmpty;
+
     return Scaffold(
+      key: _scaffoldKey, // Gán key để điều khiển drawer
       appBar: AppBar(
-        title: const Text(
-          'FLUTTER WORKSPACE',
-          style: TextStyle(
+        title: Text(
+          isExerciseSelected
+              ? _selectedExercise.toUpperCase()
+              : 'BÀI TẬP GIỮA KÌ',
+          style: const TextStyle(
             fontWeight: FontWeight.w900,
-            fontSize: 20,
             letterSpacing: 1.2,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.teal.shade700,
         foregroundColor: Colors.white,
-        elevation: 8,
-        shadowColor: Colors.teal.shade900,
+        elevation: 4,
+        // Nút điều hướng bên trái AppBar
+        leading: isExerciseSelected
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  setState(() {
+                    _selectedExercise = ''; // Quay về màn hình chào mừng
+                  });
+                  _scaffoldKey.currentState?.openDrawer(); // Tự động mở menu
+                },
+              )
+            : null, // Nếu chưa chọn gì, Flutter tự hiện icon Hamburger mở drawer
       ),
-      body: Row(
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.3,
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(color: Colors.grey.shade200, width: 1),
+
+      // Thanh Hamburger Menu
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(color: Colors.teal.shade700),
+              accountName: const Text(
+                "Menu Bài ",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              color: Colors.white,
+              accountEmail: const Text("Toàn bộ bài thực hành "),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.code, color: Colors.teal, size: 40),
+              ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
-                  child: Text(
-                    'Menu',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.teal,
+            Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: exercises.length,
+                itemBuilder: (context, index) {
+                  final item = exercises[index];
+                  final title = item['title'] as String;
+                  final isSelected = _selectedExercise == title;
+
+                  return ListTile(
+                    selected: isSelected,
+                    selectedTileColor: Colors.teal.shade50,
+                    leading: Icon(
+                      item['icon'] as IconData,
+                      color: isSelected ? Colors.teal.shade700 : Colors.grey,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 16.0, bottom: 16.0),
-                  child: Text(
-                    'Toàn bộ bài thực hành',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey.shade600,
+                    title: Text(
+                      title,
+                      style: TextStyle(
+                        fontWeight: isSelected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                        color: isSelected
+                            ? Colors.teal.shade800
+                            : Colors.black87,
+                      ),
                     ),
-                  ),
-                ),
-
-                const Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: Color(0xFFE0E0E0),
-                ),
-
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: exercises.length,
-                    itemBuilder: (context, index) {
-                      final item = exercises[index];
-                      final exerciseTitle = item['title'] as String;
-                      final isSelected = _selectedExercise == exerciseTitle;
-
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? Colors.teal.shade50
-                              : Colors.transparent,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: ListTile(
-                          selected: isSelected,
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: 0,
-                          ),
-                          leading: Icon(
-                            item['icon'] as IconData,
-                            color: isSelected
-                                ? Colors.teal.shade700
-                                : Colors.grey.shade600,
-                          ),
-                          title: Text(
-                            exerciseTitle,
-                            style: TextStyle(
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.w500,
-                              fontSize: 15,
-                              color: isSelected
-                                  ? Colors.teal.shade800
-                                  : Colors.black87,
-                            ),
-                          ),
-                          onTap: () {
-                            setState(() {
-                              _selectedExercise = exerciseTitle;
-                            });
-                          },
-                        ),
-                      );
+                    onTap: () {
+                      setState(() {
+                        _selectedExercise = title;
+                      });
+                      Navigator.pop(context); // Đóng drawer sau khi chọn bài
                     },
-                  ),
-                ),
-              ],
+                  );
+                },
+              ),
             ),
-          ),
+          ],
+        ),
+      ),
 
-          Expanded(
+      // Vùng hiển thị nội dung bài tập
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.grey.shade50, Colors.grey.shade200],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 800),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.grey.shade50, Colors.grey.shade200],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 15,
+                    offset: const Offset(0, 8),
+                  ),
+                ],
               ),
-
-              padding: const EdgeInsets.all(20.0),
-              child: Center(
-                child: Container(
-                  constraints: const BoxConstraints(
-                    maxWidth: 700,
-                    maxHeight: 900,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.25),
-                        blurRadius: 30,
-                        spreadRadius: 10,
-                        offset: const Offset(0, 15),
-                      ),
-                    ],
-                  ),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: _buildContent(_selectedExercise),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Container(
-                            width: 130,
-                            height: 5,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: _buildContent(_selectedExercise),
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
